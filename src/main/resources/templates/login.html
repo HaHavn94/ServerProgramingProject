@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <head>
+        <title>Sharing Group</title>
+        <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+    </head>
+    <body>
+     <div class="col-md-4 col-md-offset-4">
+        <div class="alert alert-danger" th:if="${param.error}">
+            Invalid username and/or password. 
+        </div>
+        <div class="alert alert-warning" th:if="${param.logout}">
+            Log Out Successfully
+        </div>
+        <form th:action="@{/login}" method="post">
+            <div><label> User Name : <input type="text" name="username" class="form-control"/> </label></div>
+            <div><label> Password: <input type="password" name="password" class="form-control"/> </label></div>
+            <div><input type="submit" value="Sign In" class="btn btn-primary"/></div>
+        </form>
+        <a th:href="@{/signup}">Sign-up</a>
+        <h1> Welcome to Sharing Group</h1>
+	<h2>Business rule: Admin can:</h2>
+	<p>Edit password of user as a private request by userby private email </p>
+	<p>Has all the permission as normal user </p>
+	<h2> User rule</h2>
+	<p> Can view list of item and who is borrowing what </p>
+	<p> Can post new item for sharing </p>
+	<p> Can register renting item </p>
+	<p> Can take down item for sharing if it belongs to him originally </p>
+       </div>
+    </body>
+</html>
