@@ -40,6 +40,7 @@ public class WebSecurityConfig  {
 		.permitAll()
 		.and()
 		.logout().permitAll();
+		
 				
 		return http.build();
 	}

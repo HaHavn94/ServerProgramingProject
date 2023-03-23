@@ -13,21 +13,22 @@ public class Item{
 @Id
 @GeneratedValue(strategy= GenerationType.AUTO)
 private Long id;
+
 private String productName;
+private String status;
 
 
 @ManyToOne
-@JoinColumn(name = "userId")
+@JoinColumn(name = "username")
 private AppUser appuser;
 
 public Item() {
-	
 }
 
-
-public Item(String productName, AppUser appuser) {
+public Item(String productName, String status, AppUser appuser) {
 	super();
 	this.productName = productName;
+	this.status = status;
 	this.appuser=appuser;
 }
 
@@ -59,6 +60,14 @@ public AppUser getAppuser() {
 
 public void setAppuser(AppUser appuser) {
 	this.appuser = appuser;
+}
+
+public String getStatus() {
+	return status;
+}
+
+public void setStatus(String status) {
+	this.status = status;
 }
 
 

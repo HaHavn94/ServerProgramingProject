@@ -1,6 +1,7 @@
 package com.example.ShareGroup.domain;
 import java.util.List;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -10,32 +11,37 @@ public class AppUser {
 		
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "appuser")
-	private List <Item> items;
-	
-	
+	private List <Item> ownItems;
+
+		
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
-
+	
+	@Column(name = "username", nullable = false, unique = true)
     private String username;
 
     private String passwordHash;
-
-    private String role;
    
     private String email;
     
-
+    @ManyToOne
+    @JoinColumn(name = "userGroup")
+    private UserGroup usergroup;
+    
     
     public AppUser() {
     }
+    public AppUser(String username) {
+    	this.username = username;
+    }
 
-	public AppUser(String username, String passwordHash, String email, String role) {
+	public AppUser(String username, String passwordHash, String email,  UserGroup usergroup) {
 		super();
 		this.username = username;
 		this.passwordHash = passwordHash;
-		this.email = email;
-		this.role = role;
+		this.email = email;		
+		this.usergroup = usergroup;
 	}
 
 	public Long getUserId() {
@@ -70,21 +76,29 @@ public class AppUser {
 		this.email = email;
 	}
 
-	public String getRole() {
-		return role;
+
+
+	public UserGroup getUsergroup() {
+		return usergroup;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setUsergroup(UserGroup usergroup) {
+		this.usergroup = usergroup;
 	}
 
-	public List<Item> getItems() {
-		return items;
+	public List<Item> getOwnItems() {
+		return ownItems;
 	}
 
-	public void setItems(List<Item> items) {
-		this.items = items;
+	public void setOwnItems(List<Item> ownItems) {
+		this.ownItems = ownItems;
 	}
+
+
+
+
+
+
 
 
 

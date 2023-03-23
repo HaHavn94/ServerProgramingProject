@@ -8,6 +8,8 @@ import com.example.ShareGroup.domain.AppUser;
 import com.example.ShareGroup.domain.AppUserRepository;
 import com.example.ShareGroup.domain.Item;
 import com.example.ShareGroup.domain.ItemRepository;
+import com.example.ShareGroup.domain.UserGroup;
+import com.example.ShareGroup.domain.UserGroupRepository;
 
 @SpringBootApplication
 public class ShareGroupApplication {
@@ -17,17 +19,31 @@ public class ShareGroupApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner haDemo(AppUserRepository urepository, ItemRepository irepo) {
+	public CommandLineRunner haDemo(AppUserRepository urepository, ItemRepository irepo, UserGroupRepository groupRepo) {
 		return (args) -> {
-			AppUser user1 = new AppUser("user", "$2a$10$.mq6qHzVV6F.br8tq.AD7OMDj0MLTwwWoFyjDHaBUmy90k1fz18dS","ha.vu@", "USER");
-			AppUser user2 = new AppUser("admin", "$2a$10$p/Bi5xt4flMvFDaQy49UaOAt0GZFydlCWHDwB9U6y8yLS8fVpIgbq","admin@gmail", "ADMIN");
-			urepository.save(user1);
-			urepository.save(user2);	
 			
-			Item item1 = new Item("pen", user1);
-			Item item2 = new Item("macBook", user2);
+			UserGroup group1 = new UserGroup ("adminGroup");
+			UserGroup group2 = new UserGroup ("userGroup");
+			groupRepo.save(group1);
+			groupRepo.save(group2);
+			
+			AppUser user1 = new AppUser("user", "$2a$04$JTpZAmTs3DNnUPNrISGnu.VVVeX2roAAA7DBUaNmL3dSc/4y1Cldy","abc@", group2  );
+		
+			AppUser user2 = new AppUser("admin", "$2a$10$p/Bi5xt4flMvFDaQy49UaOAt0GZFydlCWHDwB9U6y8yLS8fVpIgbq","admin@gmail", group1);
+			AppUser user3 = new AppUser("HaUser", "$2a$04$JTpZAmTs3DNnUPNrISGnu.VVVeX2roAAA7DBUaNmL3dSc/4y1Cldy","abc@", group2  );
+			urepository.save(user1);
+		
+			urepository.save(user2);
+			urepository.save(user3);
+			
+			Item item1 = new Item("pen", "unavailable", user1);
+			Item item2 = new Item("CuaAdmin","available", user2);
+			Item item3 = new Item("catset","available", user1);
+			Item item4 = new Item("CuaHa","available", user3);
 			irepo.save(item1);
 			irepo.save(item2);
+			irepo.save(item3);
+			irepo.save(item4);
 			
 			
 			

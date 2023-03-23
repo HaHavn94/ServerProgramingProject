@@ -13,12 +13,18 @@
         <div class="alert alert-warning" th:if="${param.logout}">
             Log Out Successfully
         </div>
-        <form th:action="@{/login}" method="post">
-            <div><label> User Name : <input type="text" name="username" class="form-control"/> </label></div>
+        
+        
+     <form    th:action="@{/login}" method="post">
+            <div><label> User Name : <input type="text"  name="username"  class="form-control"/> </label></div>
             <div><label> Password: <input type="password" name="password" class="form-control"/> </label></div>
             <div><input type="submit" value="Sign In" class="btn btn-primary"/></div>
-        </form>
-        <a th:href="@{/signup}">Sign-up</a>
+        </form>     
+        
+        
+ 
+        
+               <a th:href="@{/signup}">Sign-up</a>
         <h1> Welcome to Sharing Group</h1>
 	<h2>Business rule: Admin can:</h2>
 	<p>Edit password of user as a private request by userby private email </p>

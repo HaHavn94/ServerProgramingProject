@@ -1,7 +1,17 @@
 package com.example.ShareGroup.domain;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import jakarta.validation.constraints.*;
 
 public class SignupForm {
+
+	
+	UserGroup defaultGroup= new UserGroup();
+	
+	
+
+
+	
     @NotEmpty
     @Size(min=5, max=30)
     private String username = "";
@@ -13,9 +23,13 @@ public class SignupForm {
     @NotEmpty
     @Size(min=7, max=30)
     private String passwordCheck = "";
-
+    
     @NotEmpty
-    private String role = "USER";
+    @Size(min=7, max=30)
+    private String email = "";
+    
+    
+
 
 	public String getUsername() {
 		return username;
@@ -41,13 +55,17 @@ public class SignupForm {
 		this.passwordCheck = passwordCheck;
 	}
 
-	public String getRole() {
-		return role;
+
+
+	public String getEmail() {
+		return email;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setEmail(String email) {
+		this.email = email;
 	}
+
+
     
     
 }
