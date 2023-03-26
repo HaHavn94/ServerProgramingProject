@@ -31,8 +31,8 @@
     	<tr th:each = "item : ${items}">
     		<td th:text="${item.productName}"></td>
     		<td th:text="${item.appuser.username}"></td>
- 
-    		<td sec:authorize="hasAuthority('userGroup')">Click To Borrow</td>
+    		<td sec:authorize="hasAuthority('userGroup')"><a th:href="@{/delete/{id}(id=${item.id})}" class="btn btn-xs btn-danger">Delete</a></td> 
+    		<td sec:authorize="hasAuthority('userGroup')"><a th:href="@{/borrow/{id}(id=${item.id})}" class="btn btn-xs btn-danger">Borrow</a></td>	
     		  					
     	</tr>
      </table>

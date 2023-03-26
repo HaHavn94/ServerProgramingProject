@@ -23,7 +23,6 @@ public class AppUser {
 
     private String passwordHash;
    
-    private String email;
     
     @ManyToOne
     @JoinColumn(name = "userGroup")
@@ -36,11 +35,11 @@ public class AppUser {
     	this.username = username;
     }
 
-	public AppUser(String username, String passwordHash, String email,  UserGroup usergroup) {
+	public AppUser(String username, String passwordHash,  UserGroup usergroup) {
 		super();
 		this.username = username;
 		this.passwordHash = passwordHash;
-		this.email = email;		
+		
 		this.usergroup = usergroup;
 	}
 
@@ -68,13 +67,6 @@ public class AppUser {
 		this.passwordHash = passwordHash;
 	}
 	
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 
 

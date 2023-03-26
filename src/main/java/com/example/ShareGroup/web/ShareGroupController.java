@@ -6,8 +6,10 @@ import java.util.List;
 
 
 
+
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
@@ -41,8 +43,8 @@ public class ShareGroupController {
 	
 	@Autowired
     private AppUserRepository userRepo;
+	private String name ;
 	
- 
 		
 	// Show login page
 	
@@ -60,8 +62,8 @@ public class ShareGroupController {
 	
 	@RequestMapping(value =  "/MyCart" )
 	public String MyCartList( Model model) {
-		String currentUserName=SecurityContextHolder.getContext().getAuthentication().getName();
-		model.addAttribute("user", userRepo.findByUsername(currentUserName));
+     name=SecurityContextHolder.getContext().getAuthentication().getName();
+		model.addAttribute("user", userRepo.findByUsername(name));		
 		return "MyCart";
 	}
 
@@ -73,14 +75,32 @@ public class ShareGroupController {
 	    }
 	  
 	  @RequestMapping(value = "/save", method = RequestMethod.POST)
-	    public String saveNewItem(Item item){	 
-		  String currentUserName=SecurityContextHolder.getContext().getAuthentication().getName();
+	    public String saveNewItem(Item item){	 		 
 		    item.setStatus("available");
-		    item.setAppuser(userRepo.findByUsername(currentUserName));
+		    item.setAppUser(userRepo.findByUsername(name));
 	        itemRepo.save(item);
 	        return "redirect:afterLogin";
 	    } 
 
+	  
+	  @RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
+	  @PreAuthorize("hasAuthority('userGroup')")
+	    public String deleteItem(@PathVariable("id") Long id){
+		itemRepo.deleteById(id);
+		        return "redirect:../afterLogin";
+	    }
+	  
+	  @RequestMapping(value="/borrow/{id}", method = RequestMethod.GET)
+	  @PreAuthorize("hasAuthority('userGroup')")
+	    public String borrow(@PathVariable("id") Long id){
+		 Item currentItem = itemRepo.findById(id).get();
+		 currentItem.setStatus("unavailable");	
+		 itemRepo.save(currentItem);
+		        return "redirect:../afterLogin";
+	    }
+
+	  
  
+	 
 }
 	    

@@ -1,9 +1,13 @@
 package com.example.ShareGroup;
 
+import java.util.List;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.repository.CrudRepository;
+
 import com.example.ShareGroup.domain.AppUser;
 import com.example.ShareGroup.domain.AppUserRepository;
 import com.example.ShareGroup.domain.Item;
@@ -27,16 +31,17 @@ public class ShareGroupApplication {
 			groupRepo.save(group1);
 			groupRepo.save(group2);
 			
-			AppUser user1 = new AppUser("user", "$2a$04$JTpZAmTs3DNnUPNrISGnu.VVVeX2roAAA7DBUaNmL3dSc/4y1Cldy","abc@", group2  );
+			AppUser user1 = new AppUser("user", "$2a$04$JTpZAmTs3DNnUPNrISGnu.VVVeX2roAAA7DBUaNmL3dSc/4y1Cldy", group2  );
 		
-			AppUser user2 = new AppUser("admin", "$2a$10$p/Bi5xt4flMvFDaQy49UaOAt0GZFydlCWHDwB9U6y8yLS8fVpIgbq","admin@gmail", group1);
-			AppUser user3 = new AppUser("HaUser", "$2a$04$JTpZAmTs3DNnUPNrISGnu.VVVeX2roAAA7DBUaNmL3dSc/4y1Cldy","abc@", group2  );
-			urepository.save(user1);
-		
+			AppUser user2 = new AppUser("admin", "$2a$10$p/Bi5xt4flMvFDaQy49UaOAt0GZFydlCWHDwB9U6y8yLS8fVpIgbq", group1);
+			AppUser user3 = new AppUser("HaUser", "$2a$04$JTpZAmTs3DNnUPNrISGnu.VVVeX2roAAA7DBUaNmL3dSc/4y1Cldy", group2  );
+			urepository.save(user1);	
 			urepository.save(user2);
 			urepository.save(user3);
 			
-			Item item1 = new Item("pen", "unavailable", user1);
+			
+			
+			Item item1 = new Item("pen", "available", user1);
 			Item item2 = new Item("CuaAdmin","available", user2);
 			Item item3 = new Item("catset","available", user1);
 			Item item4 = new Item("CuaHa","available", user3);
@@ -45,7 +50,7 @@ public class ShareGroupApplication {
 			irepo.save(item3);
 			irepo.save(item4);
 			
-			
+		   
 			
 		};
 	}

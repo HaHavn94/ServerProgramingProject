@@ -14,9 +14,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import com.example.ShareGroup.web.UserDetailServiceImpl;
 
 
-
-
-
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig  {
