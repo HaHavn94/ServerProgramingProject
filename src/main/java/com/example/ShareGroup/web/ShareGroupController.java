@@ -77,7 +77,7 @@ public class ShareGroupController {
 	  @RequestMapping(value = "/save", method = RequestMethod.POST)
 	    public String saveNewItem(Item item){	 		 
 		    item.setStatus("available");
-		    item.setAppUser(userRepo.findByUsername(name));
+		    item.setAppuser(userRepo.findByUsername(name));
 	        itemRepo.save(item);
 	        return "redirect:afterLogin";
 	    } 
