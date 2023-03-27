@@ -28,6 +28,8 @@ public class AppUser {
     @JoinColumn(name = "userGroup")
     private UserGroup usergroup;
     
+	
+    
     
     public AppUser() {
     }

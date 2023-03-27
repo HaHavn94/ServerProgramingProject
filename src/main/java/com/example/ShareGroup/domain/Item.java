@@ -13,7 +13,6 @@ public class Item{
 @Id
 @GeneratedValue(strategy= GenerationType.AUTO)
 private Long id;
-
 private String productName;
 private String status;
 
@@ -31,7 +30,6 @@ public Item(String productName, String status, AppUser appuser) {
 	this.status = status;
 	this.appuser=appuser;
 }
-
 
 public Long getId() {
 	return id;

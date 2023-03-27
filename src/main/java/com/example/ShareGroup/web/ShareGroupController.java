@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.ShareGroup.domain.AppUser;
 import com.example.ShareGroup.domain.AppUserRepository;
+import com.example.ShareGroup.domain.BorrowItemRepository;
+import com.example.ShareGroup.domain.BorrowerItem;
 import com.example.ShareGroup.domain.Item;
 import com.example.ShareGroup.domain.ItemRepository;
 import com.example.ShareGroup.domain.SignupForm;
@@ -43,7 +45,13 @@ public class ShareGroupController {
 	
 	@Autowired
     private AppUserRepository userRepo;
+	
+	@Autowired
+    private BorrowItemRepository borrowerRepo;
+	
 	private String name ;
+	private AppUser currentUser;
+	
 	
 		
 	// Show login page
@@ -56,14 +64,17 @@ public class ShareGroupController {
 	
 	@RequestMapping(value = { "/", "/afterLogin" })
 	public String ItemList(Model model) {
+		 name=SecurityContextHolder.getContext().getAuthentication().getName();
+		
 		model.addAttribute("items", itemRepo.findByStatus("available"));
 		return "afterLogin";
 	}
 	
 	@RequestMapping(value =  "/MyCart" )
 	public String MyCartList( Model model) {
-     name=SecurityContextHolder.getContext().getAuthentication().getName();
-		model.addAttribute("user", userRepo.findByUsername(name));		
+		 currentUser= userRepo.findByUsername(name);
+		 model.addAttribute("borrowItemOfCurrentUser", borrowerRepo.findAllByAppuser(currentUser) );	
+		model.addAttribute("user", currentUser);
 		return "MyCart";
 	}
 
@@ -77,7 +88,7 @@ public class ShareGroupController {
 	  @RequestMapping(value = "/save", method = RequestMethod.POST)
 	    public String saveNewItem(Item item){	 		 
 		    item.setStatus("available");
-		    item.setAppUser(userRepo.findByUsername(name));
+		    item.setAppuser(userRepo.findByUsername(name));
 	        itemRepo.save(item);
 	        return "redirect:afterLogin";
 	    } 
@@ -93,9 +104,17 @@ public class ShareGroupController {
 	  @RequestMapping(value="/borrow/{id}", method = RequestMethod.GET)
 	  @PreAuthorize("hasAuthority('userGroup')")
 	    public String borrow(@PathVariable("id") Long id){
+		  
 		 Item currentItem = itemRepo.findById(id).get();
 		 currentItem.setStatus("unavailable");	
 		 itemRepo.save(currentItem);
+		 currentUser= userRepo.findByUsername(name);
+		
+		BorrowerItem borrowItem = new BorrowerItem( currentUser, currentItem);
+	
+		 borrowerRepo.save(borrowItem);
+		 
+		 
 		        return "redirect:../afterLogin";
 	    }
 

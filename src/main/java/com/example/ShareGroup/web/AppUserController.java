@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.ShareGroup.domain.AppUser;
 import com.example.ShareGroup.domain.AppUserRepository;
 import com.example.ShareGroup.domain.SignupForm;
+import com.example.ShareGroup.domain.UserGroupRepository;
 
 import jakarta.validation.*;
 
@@ -22,6 +23,9 @@ import jakarta.validation.*;
 public class AppUserController {
 	@Autowired
     private AppUserRepository repository; 
+	
+	@Autowired
+    private UserGroupRepository grRepo; 
 	
     @RequestMapping(value = "signup")
     public String addStudent(Model model){
@@ -48,7 +52,7 @@ public class AppUserController {
 		    	AppUser newUser = new AppUser();
 		    	newUser.setPasswordHash(hashPwd);
 		    	newUser.setUsername(signupForm.getUsername());
-		    	newUser.setUsergroup(signupForm.getDef());
+		    	newUser.setUsergroup(grRepo.findById((long) 2).get());
 		    	if (repository.findByUsername(signupForm.getUsername()) == null) { // Check if user exists
 		    		repository.save(newUser);
 		    	}

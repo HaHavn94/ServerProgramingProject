@@ -19,10 +19,7 @@ public class SignupForm {
     @Size(min=7, max=30)
     private String passwordCheck = "";
     
-    UserGroupRepository grRepo;
-    @NotEmpty
-    private UserGroup def = grRepo.findByUserGroup("userGroup");
-    
+
 	public String getUsername() {
 		return username;
 	}
@@ -47,13 +44,7 @@ public class SignupForm {
 		this.passwordCheck = passwordCheck;
 	}
 
-	public UserGroup getDef() {
-		return def;
-	}
 
-	public void setDef(UserGroup def) {
-		this.def = def;
-	}
 	
 
 
