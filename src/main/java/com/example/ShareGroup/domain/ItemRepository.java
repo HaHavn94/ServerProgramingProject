@@ -10,6 +10,7 @@ public interface ItemRepository extends CrudRepository <Item, Long>{
 	 List<Item> findByProductName(String productName);
 	 List<Item> findByStatus(String status);
 	
+	
 
 
 }

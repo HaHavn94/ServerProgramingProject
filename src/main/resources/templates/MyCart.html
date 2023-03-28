@@ -23,53 +23,24 @@
 		</div>
 
 		<h1>This is my cart page where you are supported to see your
-			items and can return to available page</h1>
-		
-		
-	
+			items and can return to available page</h1>	
 		
 		<table class="table table-striped">
-			<h1>Borrow Item</h1>
+			<h1>Borrow Items</h1>
 			<tr>
 				<th>Product</th>
 				<th>Owner</th>
-
-
 				<th></th>
 				<th></th>
 			</tr>
-			<tr th:each="item : ${borrowItemOfCurrentUser}">
-				<td th:text="${item.item.productName}"></td>
-				<td th:text="${item.item.appuser.username}"></td>
-
-			</tr>
-		</table>
-	
-		
-		
-		
-		
-		<table class="table table-striped">
-			<h1>My Own Item Item</h1>
-			<tr>
-				<th>Product</th>
-				<th> Who is keeping it </th>
+			<tr th:each="user : ${user.ownItems}">
+				<td th:text="${user.productName}"></td>
+			
+			</tr>			
 					
-			</tr>
-		
-					<tr th:each="user : ${user.ownItems}"  >
-				<td th:text="${user.productName}"></td>		
-								
-		
-		
-						
-				
-			</tr>
 	
-			
 		
-			
-		</table>
+		
 	</div>
 	<a href="/afterLogin" class="btn btn-primary">Back to Available
 		Items page </a>

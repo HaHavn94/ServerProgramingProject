@@ -13,22 +13,28 @@ public class Item{
 @Id
 @GeneratedValue(strategy= GenerationType.AUTO)
 private Long id;
+
 private String productName;
 private String status;
-
 
 @ManyToOne
 @JoinColumn(name = "username")
 private AppUser appuser;
 
+@ManyToOne
+@JoinColumn(name = "borrower")
+private AppUser borrower;
+
+
 public Item() {
 }
 
-public Item(String productName, String status, AppUser appuser) {
+public Item(String productName, String status, AppUser appuser,AppUser borrower) {
 	super();
 	this.productName = productName;
 	this.status = status;
 	this.appuser=appuser;
+	this.borrower=borrower;
 }
 
 public Long getId() {
@@ -68,6 +74,13 @@ public void setStatus(String status) {
 	this.status = status;
 }
 
+public AppUser getBorrower() {
+	return borrower;
+}
+
+public void setBorrower(AppUser borrower) {
+	this.borrower = borrower;
+}
 
 
 
