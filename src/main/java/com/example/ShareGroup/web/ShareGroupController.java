@@ -47,28 +47,26 @@ public class ShareGroupController {
     private AppUserRepository userRepo;
 
 	
-	private String name ;
+	private String name;
 	private AppUser currentUser;
-	
-	
-		
+	private List<Item> listItem;
+	private List<Item> listBorrow ;
+			
 	// Show login page
 	
    @RequestMapping(value="/login")
    public String login(){
       return "login";
    }	
-   
-	
+   	
 	@RequestMapping(value = { "/", "/afterLogin" })
 	public String ItemList(Model model) {
 		 name=SecurityContextHolder.getContext().getAuthentication().getName();	
-		model.addAttribute("items", itemRepo.findByStatus("available"));
+		 currentUser= userRepo.findByUsername(name);
+		 model.addAttribute("items", itemRepo.findByStatus("available"));
 		return "afterLogin";
 	}
 	
-
-
 	
 	  @RequestMapping(value="/AddItem")
 	    public String addItem(Model model){
@@ -79,11 +77,11 @@ public class ShareGroupController {
 	  @RequestMapping(value = "/save", method = RequestMethod.POST)
 	    public String saveNewItem(Item item){	 		 
 		    item.setStatus("available");
-		    item.setAppuser(userRepo.findByUsername(name));
+		    item.setAppuser(currentUser);
+		    item.setBorrower(currentUser);
 	        itemRepo.save(item);
 	        return "redirect:afterLogin";
 	    } 
-
 	  
 	  @RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
 	  @PreAuthorize("hasAuthority('userGroup')")
@@ -91,33 +89,33 @@ public class ShareGroupController {
 		itemRepo.deleteById(id);
 		        return "redirect:../afterLogin";
 	    }
+	  @RequestMapping(value="/deleteInMyCart/{id}", method = RequestMethod.GET)
+	  @PreAuthorize("hasAuthority('userGroup')")
+	    public String deleteItemInMyCart(@PathVariable("id") Long id){
+		itemRepo.deleteById(id);
+		        return "redirect:../MyCart";
+	    }
 	  
 		@RequestMapping(value = "/MyCart" )
-		public String MyCartList( Model model) {
-			
-			 currentUser= userRepo.findByUsername(name);	
-			model.addAttribute("user", currentUser);
-			return "MyCart";
-		}
-	  
+		public String MyCartList( Model model) {			
+			 listItem = itemRepo.findAllByAppuser(currentUser);		
+			listBorrow = itemRepo.findAllByBorrower(currentUser);					
+			model.addAttribute("items", listItem);
+			model.addAttribute("borrow",listBorrow);
+			 return "MyCart";
+		
+		} 
 	  @RequestMapping(value="/borrow/{id}", method = RequestMethod.GET)
 	  @PreAuthorize("hasAuthority('userGroup')")
 	    public String borrow(@PathVariable("id") Long id){	  
-		 currentUser= userRepo.findByUsername(name);
-		 
-		 
 		 Item currentItem=  itemRepo.findById(id).get();
 		 currentItem.setStatus("unavailable");	
-		 currentItem.setBorrower(currentUser);
-		
-		 itemRepo.save(currentItem);				
-		 
-		 
-		 
+		 currentItem.setBorrower(currentUser);	
+		 itemRepo.save(currentItem);						 
 		        return "redirect:../afterLogin";
 	    }
 
-	  
+	
  
 	 
 }

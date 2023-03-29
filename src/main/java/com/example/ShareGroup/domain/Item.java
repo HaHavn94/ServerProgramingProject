@@ -29,12 +29,13 @@ private AppUser borrower;
 public Item() {
 }
 
-public Item(String productName, String status, AppUser appuser,AppUser borrower) {
+public Item(String productName, String status, AppUser appuser, AppUser borrower) {
 	super();
 	this.productName = productName;
 	this.status = status;
 	this.appuser=appuser;
 	this.borrower=borrower;
+	
 }
 
 public Long getId() {
