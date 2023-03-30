@@ -38,13 +38,15 @@
 				<td th:text="${item.productName}"></td>
 				<td th:text="${item.status}"></td>
 				<td th:text="${item.borrower.username}"></td>		
-				<td><a th:href="@{/deleteInMyCart/{id}(id=${item.id})}" class="btn btn-xs btn-danger">Delete From Sharing List</a></td>
+				<td><a th:href="@{/deleteInMyCart/{id}(id=${item.id})}" class="btn btn-xs btn-danger">Delete</a></td>
+				<td><a th:href="@{/edit/{id}(id=${item.id})}" class="btn btn-xs btn-danger">Edit</a></td>
 			</tr>	
 		</table>
 		
 		<table class="table table-striped">	
 			<h2>Borrow Items</h2>
 			<tr>
+			<th>Id</th>
 				<th>Products</th>
 				<th>Status         </th>
 					<th>I am borrowing it from</th>
@@ -52,9 +54,12 @@
 				<th></th>
 			</tr>
 			<tr th:each="borrow: ${borrow}" >
+			<td th:text="${borrow.id}"></td>
 				<td th:text="${borrow.productName}"></td>
 				<td th:text="${borrow.status}"></td>
 				<td th:text="${borrow.appuser.username}"></td>		
+				<td><a th:href="@{/deleteInBorrow/{id}(id=${borrow.id})}" class="btn btn-xs btn-danger">Return</a></td>
+				
 				
 			</tr>	
 		</table>

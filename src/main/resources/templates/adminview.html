@@ -19,32 +19,33 @@
 			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
 		</form>
 	</div>
-<h1> Available Items for sharing now</h1>
-    	
-    	 <a sec:authorize="hasAuthority('adminGroup')" href="/adminPanel" class="btn btn-primary">Control Panel</a> 
- 		 <table class="table table-striped">
+<h1> Items Data Of all users</h1>
+   
+    <table class="table table-striped">
 		<tr>
+		<th>id</th>
 		    <th>item</th>
+		    <th>Status</th>
 		    <th>owner</th>
+		    <th>Keeper</th>
 		    <th> </th>
 		    <th> </th>
 		</tr>  
     	
     	<tr th:each = "item : ${items}">
+    		<td th:text="${item.id}"></td>
     		<td th:text="${item.productName}"></td>
-    		<td th:text="${item.appuser.username}"></td>   		 
-    		<td sec:authorize="hasAuthority('userGroup')"><a th:href="@{/borrow/{id}(id=${item.id})}" class="btn btn-xs btn-danger">Borrow</a></td>	
-    		  					
+    		<td th:text="${item.status}"></td>
+    		<td th:text="${item.appuser.username}"></td>   
+    		<td th:text="${item.borrower.username}"></td> 
+    		 <td><a th:href="@{/deleteInMyCart/{id}(id=${item.id})}" class="btn btn-xs btn-danger">Delete</a></td> 	
+    		 <td><a th:href="@{/edit/{id}(id=${item.id})}" class="btn btn-xs btn-danger">Edit</a></td>				
     	</tr>
-    	
-    	
-    	
+   	
      </table>
-     <a  sec:authorize="hasAuthority('userGroup')" href="/MyCart" class="btn btn-primary">Go to my cart</a> 
-     <p> </p>
-      <a  sec:authorize="hasAuthority('userGroup')" href="/AddItem" class="btn btn-primary">Add Item For Share </a> 
+
     
 	
-</div>	    	
+</div>	    
 </body>
 </html>

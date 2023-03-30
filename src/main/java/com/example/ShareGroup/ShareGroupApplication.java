@@ -41,10 +41,10 @@ public class ShareGroupApplication {
 			
 			
 			
-			Item item1 = new Item("pen", "available", user1, user1);
-			Item item2 = new Item("CuaAdmin","available", user2, user2);
-			Item item3 = new Item("catset","available", user1,user1);
-			Item item4 = new Item("CuaHa","available", user3,user3);
+			Item item1 = new Item("pen", "available", user1, user2);
+			Item item2 = new Item("apple","available", user3, user2);
+			Item item3 = new Item("catset","available", user1,user2);
+			Item item4 = new Item("dog","available", user3,user2);
 			
 			irepo.save(item1);
 			irepo.save(item2);

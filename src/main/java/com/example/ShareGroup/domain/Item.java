@@ -1,6 +1,7 @@
 package com.example.ShareGroup.domain;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,7 +23,7 @@ private String status;
 private AppUser appuser;
 
 @ManyToOne
-@JoinColumn(name = "borrower")
+@JoinColumn(name = "borrower", nullable = true)
 private AppUser borrower;
 
 
