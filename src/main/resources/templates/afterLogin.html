@@ -1,50 +1,60 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <title>Book List </title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<title>Book List</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
 </head>
 <body>
-<div class="container">
-	<div class="col-md-4">
-		<h1>Available Items</h1>
+	<div class="container">
+		<div class="col-md-4">
+			<h1>Available Items</h1>
+		</div>
+		<div class="col-md-4">
+			<i>Welcome <b sec:authentication="name"></b>, your role is <b
+				sec:authentication="principal.authorities"></b>
+		</div>
+		<div class="col-md-4" style="padding: 20px 0">
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Sign Out" class="btn btn-sm btn-danger" />
+			</form>
+		</div>
+		<h1>Available Items for sharing now</h1>
+
+		<a sec:authorize="hasAuthority('adminGroup')" href="/adminPanel"
+			class="btn btn-primary">Item Control Panel</a> <a
+			sec:authorize="hasAuthority('adminGroup')"
+			href="/userAccountAdminSide" class="btn btn-primary">User Account
+			Control Panel</a>
+		<table class="table table-striped">
+			<tr>
+				<th>item</th>
+				<th>owner</th>
+				<th></th>
+				<th></th>
+			</tr>
+
+			<tr th:each="item : ${items}">
+				<td th:text="${item.productName}"></td>
+				<td th:text="${item.appuser.username}"></td>
+				<td sec:authorize="hasAuthority('userGroup')"><a
+					th:href="@{/borrow/{id}(id=${item.id})}"
+					class="btn btn-xs btn-danger">Borrow</a></td>
+
+			</tr>
+
+
+
+		</table>
+		<a sec:authorize="hasAuthority('userGroup')" href="/MyCart"
+			class="btn btn-primary">Go to my cart</a>
+		<p></p>
+		<a sec:authorize="hasAuthority('userGroup')" href="/AddItem"
+			class="btn btn-primary">Add Item For Share </a>
+
+
 	</div>
-	<div class="col-md-4">
-		<i>Welcome <b sec:authentication="name"></b>,
-        your role is <b sec:authentication="principal.authorities"></b>
-	</div>
-	<div class="col-md-4" style="padding:20px 0">
-		<form th:action="@{/logout}" method="post">
-			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
-		</form>
-	</div>
-<h1> Available Items for sharing now</h1>
-    	
-    	 <a sec:authorize="hasAuthority('adminGroup')" href="/adminPanel" class="btn btn-primary">Control Panel</a> 
- 		 <table class="table table-striped">
-		<tr>
-		    <th>item</th>
-		    <th>owner</th>
-		    <th> </th>
-		    <th> </th>
-		</tr>  
-    	
-    	<tr th:each = "item : ${items}">
-    		<td th:text="${item.productName}"></td>
-    		<td th:text="${item.appuser.username}"></td>   		 
-    		<td sec:authorize="hasAuthority('userGroup')"><a th:href="@{/borrow/{id}(id=${item.id})}" class="btn btn-xs btn-danger">Borrow</a></td>	
-    		  					
-    	</tr>
-    	
-    	
-    	
-     </table>
-     <a  sec:authorize="hasAuthority('userGroup')" href="/MyCart" class="btn btn-primary">Go to my cart</a> 
-     <p> </p>
-      <a  sec:authorize="hasAuthority('userGroup')" href="/AddItem" class="btn btn-primary">Add Item For Share </a> 
-    
-	
-</div>	    	
 </body>
 </html>

@@ -1,6 +1,6 @@
 package com.example.ShareGroup.domain;
-import java.util.List;
 
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -8,40 +8,37 @@ import jakarta.persistence.*;
 
 @Entity
 public class AppUser {
-		
+
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "appuser")
-	private List <Item> ownItems;
+	private List<Item> ownItems;
 
-		
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long userId;
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long userId;
+
 	@Column(name = "username", nullable = false, unique = true)
-    private String username;
+	private String username;
 
-    private String passwordHash;
-   
-    
-    @ManyToOne
-    @JoinColumn(name = "userGroup")
-    private UserGroup usergroup;
-    
-	
-    
-    
-    public AppUser() {
-    }
-    public AppUser(String username) {
-    	this.username = username;
-    }
+	private String passwordHash;
 
-	public AppUser(String username, String passwordHash,  UserGroup usergroup) {
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "userGroup")
+	private UserGroup usergroup;
+
+	public AppUser() {
+	}
+
+	public AppUser(String username) {
+		this.username = username;
+	}
+
+	public AppUser(String username, String passwordHash, UserGroup usergroup) {
 		super();
 		this.username = username;
 		this.passwordHash = passwordHash;
-		
+
 		this.usergroup = usergroup;
 	}
 
@@ -68,9 +65,6 @@ public class AppUser {
 	public void setPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
 	}
-	
-
-
 
 	public UserGroup getUsergroup() {
 		return usergroup;
@@ -88,14 +82,4 @@ public class AppUser {
 		this.ownItems = ownItems;
 	}
 
-
-
-
-
-
-
-
-
-
-	
 }

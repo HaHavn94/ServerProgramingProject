@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Book List </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="container">
+	<div class="col-md-4">
+		<h1>Available Items</h1>
+	</div>
+	<div class="col-md-4">
+		<i>Welcome <b sec:authentication="name"></b>,
+        your role is <b sec:authentication="principal.authorities"></b>
+	</div>
+	<div class="col-md-4" style="padding:20px 0">
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+		</form>
+	</div>
+<h1> Account User Details</h1>
+   
+    <table class="table table-striped">
+		<tr>
+		 <th>Id</th>
+		<th>Name</th>
+		    <th>Hash Password</th>
+		    <th>User Group</th>		    
+		    <th> </th>
+		    <th> </th>
+		</tr>  
+		
+		 <tr th:each = "user : ${users}">
+    		<td th:text="${user.userId}"></td>
+    		<td th:text="${user.username}"></td>
+    		<td th:text="${user.passwordHash}"></td>
+    		<td th:text="${user.usergroup.userGroup}"></td>
+    		<td><a th:href="@{/deleteUser/{userId}(userId=${user.userId})}" class="btn btn-xs btn-danger">Delete User</a></td> 	
+    		 
+    				
+    	</tr>
+    	
+   
+   	
+     </table>
+
+    
+	
+</div>	    
+</body>
+</html>

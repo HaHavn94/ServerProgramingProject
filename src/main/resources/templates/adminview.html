@@ -1,51 +1,54 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <title>Book List </title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<title>Book List</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
 </head>
 <body>
-<div class="container">
-	<div class="col-md-4">
-		<h1>Available Items</h1>
-	</div>
-	<div class="col-md-4">
-		<i>Welcome <b sec:authentication="name"></b>,
-        your role is <b sec:authentication="principal.authorities"></b>
-	</div>
-	<div class="col-md-4" style="padding:20px 0">
-		<form th:action="@{/logout}" method="post">
-			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
-		</form>
-	</div>
-<h1> Items Data Of all users</h1>
-   
-    <table class="table table-striped">
-		<tr>
-		<th>id</th>
-		    <th>item</th>
-		    <th>Status</th>
-		    <th>owner</th>
-		    <th>Keeper</th>
-		    <th> </th>
-		    <th> </th>
-		</tr>  
-    	
-    	<tr th:each = "item : ${items}">
-    		<td th:text="${item.id}"></td>
-    		<td th:text="${item.productName}"></td>
-    		<td th:text="${item.status}"></td>
-    		<td th:text="${item.appuser.username}"></td>   
-    		<td th:text="${item.borrower.username}"></td> 
-    		 <td><a th:href="@{/deleteInMyCart/{id}(id=${item.id})}" class="btn btn-xs btn-danger">Delete</a></td> 	
-    		 <td><a th:href="@{/edit/{id}(id=${item.id})}" class="btn btn-xs btn-danger">Edit</a></td>				
-    	</tr>
-   	
-     </table>
+	<div class="container">
+		<div class="col-md-4">
+			<h1>Available Items</h1>
+		</div>
+		<div class="col-md-4">
+			<i>Welcome <b sec:authentication="name"></b>, your role is <b
+				sec:authentication="principal.authorities"></b>
+		</div>
+		<div class="col-md-4" style="padding: 20px 0">
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Sign Out" class="btn btn-sm btn-danger" />
+			</form>
+		</div>
+		<h1>Items Data Of all users</h1>
 
-    
-	
-</div>	    
+		<table class="table table-striped">
+			<tr>
+				<th>id</th>
+				<th>item</th>
+				<th>Status</th>
+				<th>owner</th>
+				<th>Keeper</th>
+				<th></th>
+				<th></th>
+			</tr>
+
+			<tr th:each="item : ${items}">
+				<td th:text="${item.id}"></td>
+				<td th:text="${item.productName}"></td>
+				<td th:text="${item.status}"></td>
+				<td th:text="${item.appuser.username}"></td>
+				<td th:text="${item.borrower.username}"></td>
+
+			</tr>
+
+		</table>
+
+		<p>
+			<a href="/afterLogin">Back</a>
+		</p>
+
+	</div>
 </body>
 </html>

@@ -16,49 +16,46 @@ public class UserGroup {
 
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usergroup")
-	private List <AppUser> users;
-	
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long groupId;
-    private String userGroup;
- 
+	private List<AppUser> users;
 
-public UserGroup() {
-	 super();
-	 
- }
- 
- public UserGroup(String userGroup) {
-	super();
-	this.userGroup = userGroup;
-	
-}
- 
- public Long getGroupId() {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long groupId;
+	private String userGroup;
+
+	public UserGroup() {
+		super();
+
+	}
+
+	public UserGroup(String userGroup) {
+		super();
+		this.userGroup = userGroup;
+
+	}
+
+	public Long getGroupId() {
 		return groupId;
 	}
 
 	public void setGroupId(Long groupId) {
 		this.groupId = groupId;
 	}
-	
-public String getUserGroup() {
-	return userGroup;
-}
-public void setUserGroup(String userGroup) {
-	this.userGroup = userGroup;
-}
 
-public List<AppUser> getUsers() {
-	return users;
-}
+	public String getUserGroup() {
+		return userGroup;
+	}
 
-public void setUsers(List<AppUser> users) {
-	this.users = users;
-}
+	public void setUserGroup(String userGroup) {
+		this.userGroup = userGroup;
+	}
 
+	public List<AppUser> getUsers() {
+		return users;
+	}
 
- 
- 
+	public void setUsers(List<AppUser> users) {
+		this.users = users;
+	}
+
 }
