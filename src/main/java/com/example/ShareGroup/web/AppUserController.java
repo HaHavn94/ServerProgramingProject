@@ -1,6 +1,7 @@
 package com.example.ShareGroup.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import com.example.ShareGroup.domain.SignupForm;
 import com.example.ShareGroup.domain.UserGroupRepository;
 
 import jakarta.validation.*;
+
 
 @Controller
 public class AppUserController {
@@ -37,6 +39,7 @@ public class AppUserController {
 	 * @param bindingResult
 	 * @return
 	 */
+ 
 	@RequestMapping(value = "saveuser", method = RequestMethod.POST)
 	public String save(@Valid @ModelAttribute("signupform") SignupForm signupForm, BindingResult bindingResult) {
 		if (!bindingResult.hasErrors()) { // validation errors
@@ -44,7 +47,6 @@ public class AppUserController {
 				String pwd = signupForm.getPassword();
 				BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
 				String hashPwd = bc.encode(pwd);
-
 				AppUser newUser = new AppUser();
 				newUser.setPasswordHash(hashPwd);
 				newUser.setUsername(signupForm.getUsername());

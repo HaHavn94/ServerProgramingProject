@@ -1,13 +1,15 @@
 package com.example.ShareGroup.domain;
 
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Component;
 
-public interface AppUserRepository extends CrudRepository<AppUser, Long> {
+@Component
+public interface AppUserRepository  extends CrudRepository<AppUser, Long> {
 
 	AppUser findByUsername(String username);
+
+	AppUser getByUsername(String username);
 	
 	
 

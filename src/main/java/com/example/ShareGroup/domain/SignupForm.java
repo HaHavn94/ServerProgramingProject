@@ -1,8 +1,5 @@
 package com.example.ShareGroup.domain;
 
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 import jakarta.validation.constraints.*;
 
